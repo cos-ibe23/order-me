@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home - TAILSCALE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Reset & Base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f2f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Navigation */
+    nav {
+      background-color: #1e90ff;
+      width: 100%;
+      padding: 15px 0;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+    nav a:hover { color: #ffdd59; }
+
+    /* Logo Container */
+    .logo-container {
+      text-align: center;
+      margin: 60px 0;
+      transform: rotate(-10deg);
+      display: inline-block;
+      background: linear-gradient(135deg, #1e90ff, #28a745);
+      padding: 25px 50px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      animation: slideIn 1s ease-out forwards;
+      opacity: 0;
+    }
+
+    /* Entrance animation */
+    @keyframes slideIn {
+      0% { transform: translateY(-100px) rotate(-15deg); opacity: 0; }
+      100% { transform: translateY(0) rotate(-3deg); opacity: 1; }
+    }
+
+    .logo-container:hover {
+      transform: rotate(0deg) scale(1.05);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .logo-main {
+      font-size: 3rem;
+      font-weight: bold;
+      color: white;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      margin-bottom: 10px;
+    }
+
+    .logo-sub {
+      font-size: 1.2rem;
+      color: #f0f0f0;
+      font-style: italic;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+
+    /* Content Box */
+    .content-box {
+      max-width: 600px;
+      background: white;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .content-box p {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 25px;
+      background: #28a745;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      margin: 5px;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .btn:hover {
+      background: #1fa12f;
+      transform: scale(1.05);
+    }
+
+    @media(max-width: 500px) {
+      .logo-container { padding: 20px 30px; }
+      .logo-main { font-size: 2.2rem; }
+      .content-box { width: 90%; padding: 20px; }
+      .btn { padding: 10px 20px; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="order.html">Place Order</a>
+    <a href="#" id="logout">Logout</a>
+  </nav>
+
+  <!-- Logo Section -->
+  <div class="logo-container">
+    <h1 class="logo-main">TAILSCALE</h1>
+    <h3 class="logo-sub">by Cos-Ibe Anointed</h3>
+  </div>
+
+  <!-- Intro Content -->
+  <div class="content-box">
+    <p>
+      TAILSCALE Ltd is an Order Processing Organization specializing in fast, secure, and reliable
+      order management solutions. Manage your orders efficiently through our web-based platform.
+    </p>
+    <a href="dashboard.html" class="btn">Go to Dashboard</a>
+    <a href="order.html" class="btn">Place an Order</a>
+  </div>
+
+  <script>
+    // Redirect to login if not logged in
+    const customerId = localStorage.getItem("customerId");
+    if (!customerId) {
+      window.location.href = "/index.html";
+    }
+
+    // Logout functionality
+    document.getElementById("logout").addEventListener("click", () => {
+      localStorage.removeItem("customerId");
+      window.location.href = "/index.html";
+    });
+  </script>
+
+</body>
+</html>
+<img src="logo.png" alt="Organization Logo">

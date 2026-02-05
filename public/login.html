@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login – Order App</title>
+  <style>
+    /* Reset & base */
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; display:flex; justify-content:center; align-items:center; height:100vh; }
+
+    /* Container */
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    h2 { margin-bottom: 20px; color: #333; }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s;
+    }
+    input:focus { border-color: #007bff; outline: none; }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border:none;
+      border-radius: 8px;
+      background-color: #007bff;
+      color:white;
+      font-weight: bold;
+      cursor:pointer;
+      transition: background 0.3s;
+    }
+    button:hover { background-color: #0056b3; }
+
+    .link-btn {
+      background: none;
+      border: none;
+      color: #007bff;
+      cursor: pointer;
+      margin-top: 10px;
+      text-decoration: underline;
+    }
+
+    /* Message styles */
+    #message {
+      margin-top: 10px;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    #message.show { opacity: 1; transform: translateY(0); }
+    #message.error { color: #e74c3c; }
+    #message.success { color: #2ecc71; }
+    #message.loading { color: #3498db; }
+
+    /* Spinner */
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #007bff;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    @media(max-width:400px){
+      .card { width:90%; padding: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Welcome Back!</h2>
+
+  <form id="loginForm">
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="password" name="password" placeholder="Password" required />
+    <button type="submit">Login</button>
+  </form>
+
+  <button class="link-btn" onclick="goToSignup()">New Here? Signup!</button>
+
+  <p id="message"></p>
+</div>
+
+<script>
+  const form = document.getElementById("loginForm");
+  const message = document.getElementById("message");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    // Show loading state
+    message.textContent = "Logging in...";
+    message.className = "loading show";
+    const spinner = document.createElement("span");
+    spinner.className = "spinner";
+    message.appendChild(spinner);
+
+    try {
+      const res = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      const result = await res.json();
+
+      message.classList.remove("loading");
+      spinner.remove();
+
+      if(result.success){
+        message.textContent = "Login successful!";
+        message.className = "success show";
+        localStorage.setItem("customerId", result.customerId);
+        setTimeout(() => { window.location.href = "/home.html"; }, 1000);
+      } else {
+        message.textContent = result.message;
+        message.className = "error show";
+      }
+    } catch(err){
+      message.textContent = "Network error!";
+      message.className = "error show";
+    }
+  });
+
+  function goToSignup() {
+    window.location.href = "/signup.html";
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Place Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        .order-box {
+            width: 400px;
+            background: white;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        input, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="home.html">HOME</a>
+</nav>
+
+<div class="order-box">
+    <h3>Order Placement</h3>
+
+    <form action="/place-order" method="POST">
+        <input type="text" name="customerId" placeholder="Customer ID" required>
+        <input type="text" name="productName" placeholder="Product Name" required>
+        <input type="number" name="quantity" placeholder="Quantity" required>
+        <input type="number" name="price" placeholder="Price per Item" required>
+
+        <button type="submit">Place Order</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 40px;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+      margin: auto;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+    }
+    #message {
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Place Order</h2>
+
+    <form id="orderForm">
+      <input type="text" name="productName" placeholder="Product Name" required />
+      <input type="number" name="quantity" placeholder="Quantity" required />
+      <input type="number" name="price" placeholder="Price" required />
+      <button type="submit">Place Order</button>
+    </form>
+
+    <p id="message"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById("orderForm");
+    const message = document.getElementById("message");
+    const customerId = localStorage.getItem("customerId");
+
+    if (!customerId) {
+      window.location.href = "/";
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.customerId = customerId;
+
+      const res = await fetch("/place-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const text = await res.text();
+      message.textContent = text;
+      message.style.color = "green";
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>

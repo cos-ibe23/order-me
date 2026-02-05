@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order App - Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 40px;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+      margin: auto;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .link-btn {
+      background: none;
+      color: #007bff;
+      text-decoration: underline;
+      margin-top: 10px;
+    }
+    #message {
+      margin-top: 10px;
+      color: red;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Hi, Welcome!</h2>
+
+    <form id="loginForm">
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+
+    <button class="link-btn" onclick="goToSignup()">
+      New Here? Signup!
+    </button>
+
+    <p id="message"></p>
+  </div>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      const res = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        // store user id for orders
+        localStorage.setItem("customerId", result.customerId);
+        window.location.href = "/home.html";
+      } else {
+        message.textContent = result.message;
+      }
+    });
+
+    function goToSignup() {
+      window.location.href = "/signup.html";
+    }
+    
+  const customerId = localStorage.getItem("customerId");
+  if (!customerId) {
+    window.location.href = "/index.html"; // redirect to login if not logged in
+  }
+</script>
+
+  </script>
+
+</body>
+</html>

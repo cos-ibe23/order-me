@@ -1,0 +1,98 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+.container {
+  width: 300px;
+  margin: 100px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.link-btn {
+  margin-top: 10px;
+  background: transparent;
+  color: #007bff;
+  text-decoration: underline;
+}
+
+#message {
+  margin-top: 10px;
+  color: red;
+  text-align: center;
+}
+
+
+.logo-container {
+  text-align: center;
+  margin-top: 40px;
+  transform: rotate(-3deg); /* Slight tilt */
+  display: inline-block;
+  background: linear-gradient(135deg, #1e90ff, #28a745);
+  padding: 20px 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover animation */
+.logo-container:hover {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+}
+
+.logo-main {
+  font-size: 3rem;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 0;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.logo-sub {
+  font-size: 1.2rem;
+  color: #f0f0f0;
+  margin-top: 5px;
+  font-style: italic;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.logo-main::after {
+  content: '';
+  display: block;
+  width: 60%;
+  height: 4px;
+  background: white;
+  margin: 8px auto 0;
+  transform: rotate(-5deg);
+  border-radius: 2px;
+}
+
+
